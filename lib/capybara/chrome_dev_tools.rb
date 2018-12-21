@@ -5,8 +5,10 @@ module Capybara::ChromeDevTools
   autoload :DSL,              'capybara/chrome_dev_tools/dsl'
 
   class << self
+    attr_accessor :enabled
     attr_accessor :preferred_port
   end
+  self.enabled = false
   self.preferred_port = 9222
 end
 

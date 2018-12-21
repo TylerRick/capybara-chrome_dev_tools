@@ -6,9 +6,9 @@ module Capybara::ChromeDevTools
     attr_accessor :crmux_listen_port
 
     def initialize(app, opts)
-      puts "#{self.class}#initialize"
+      #puts "#{self.class}#initialize"
 
-      if opts[:browser] == :chrome
+      if opts[:browser] == :chrome and Capybara::ChromeDevTools.enabled
         start_crmux!(opts)
       end
 
@@ -62,7 +62,7 @@ module Capybara::ChromeDevTools
 
     def browser
       super.tap do |browser|
-        dev_tools
+        dev_tools if Capybara::ChromeDevTools.enabled
       end
     end
 
