@@ -43,7 +43,7 @@ module Capybara::ChromeDevTools
       command = "npx crmux #{'-d' if @debug_crmux} \
                    --port=#{chrome_debugging_port} \
                    --listen=#{crmux_listen_port}"
-      #puts %(command: #{command})
+      puts %(command: #{command}) if Capybara::ChromeDevTools.verbose >= 3
       if @debug_crmux
         spawn_opts = {[:out, :err] => 'log/crmux.log'}
       else
@@ -55,7 +55,7 @@ module Capybara::ChromeDevTools
       sleep 0.1
 
       at_exit do
-        puts "Killing crmux process #{@crmux_pid}..."
+        puts "Killing crmux process #{@crmux_pid}..." if Capybara::ChromeDevTools.verbose >= 1
         Process.kill 'TERM', @crmux_pid
       end
     end
@@ -68,7 +68,7 @@ module Capybara::ChromeDevTools
 
     def dev_tools
       @dev_tools ||= (
-        #puts "Connecting to #{crmux_listen_port}..."
+        puts "Connecting to #{crmux_listen_port}..." if Capybara::ChromeDevTools.verbose >= 2
         ChromeRemote.client host: 'localhost', port: crmux_listen_port
       )
     end

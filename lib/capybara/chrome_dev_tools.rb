@@ -7,9 +7,11 @@ module Capybara::ChromeDevTools
   class << self
     attr_accessor :enabled
     attr_accessor :preferred_port
+    attr_accessor :verbose
   end
   self.enabled = false
   self.preferred_port = 9222
+  self.verbose = 1
 end
 
 Capybara::Selenium::Driver.class_eval do
